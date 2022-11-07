@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           builder: (context) => const HomeScreen()));
                 }
               },
-              child: const Text("Log-In"),
+              child: const Text("LogIn"),
             )
           ],
         ),
