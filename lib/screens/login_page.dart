@@ -13,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final username_controller = TextEditingController();
   final password_controller = TextEditingController();
 
-  late SharedPreferences logindata;
+  late SharedPreferences sharedpreferences;
   late bool user;
 
   @override
@@ -23,8 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void alreadylogin() async {
-    logindata = await SharedPreferences.getInstance();
-    user = (logindata.getBool('login') ?? true);
+    sharedpreferences = await SharedPreferences.getInstance();
+    user = (sharedpreferences.getBool('login') ?? true);
 
     if (user == false) {
       Navigator.pushReplacement(
@@ -82,10 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 String username = username_controller.text;
                 String password = password_controller.text;
-                if (username == 'test@gmail.com' && password == '123456789') {
-                  logindata.setBool('login', false);
-                  logindata.setString('username', username);
-                  Navigator.push(
+                if (username == 'test@gmail.com' && password == '12345678') {
+                  sharedpreferences.setBool('login', false);
+                  sharedpreferences.setString('username', username);
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const HomeScreen()));

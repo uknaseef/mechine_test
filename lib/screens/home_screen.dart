@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late SharedPreferences logindata;
+  late SharedPreferences sharedpreferences;
   String? username;
 
   @override
@@ -20,9 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void initial() async {
-    logindata = await SharedPreferences.getInstance();
+    sharedpreferences = await SharedPreferences.getInstance();
     setState(() {
-      username = logindata.getString('username')!;
+      username = sharedpreferences.getString('username')!;
     });
   }
 
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.blueGrey)),
               onPressed: () {
-                logindata.setBool('login', true);
+                sharedpreferences.setBool('login', true);
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
