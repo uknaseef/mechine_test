@@ -30,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.black,
+        centerTitle: true,
         title: const Text('Home Screen'),
       ),
       body: Padding(
@@ -45,9 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
             ),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blueGrey)),
+                  backgroundColor: MaterialStateProperty.all(Colors.black)),
               onPressed: () {
                 sharedpreferences.setBool('login', true);
                 Navigator.pushReplacement(

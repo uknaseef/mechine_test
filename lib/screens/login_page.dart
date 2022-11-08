@@ -43,57 +43,56 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
-        title: const Text(" Shared Preferences"),
+        backgroundColor: Colors.black,
+        title: const Text(" Authentication"),
+        centerTitle: true,
         elevation: 0,
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 10),
-            const Text(
-              "Login",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: TextField(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Login",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              TextField(
                 controller: username_controller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'username',
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: TextField(
+              const SizedBox(height: 20),
+              TextField(
                 controller: password_controller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
                 ),
               ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blueGrey)),
-              onPressed: () {
-                String username = username_controller.text;
-                String password = password_controller.text;
-                if (username == 'test@gmail.com' && password == '12345678') {
-                  sharedpreferences.setBool('login', false);
-                  sharedpreferences.setString('username', username);
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
-                }
-              },
-              child: const Text("LogIn"),
-            )
-          ],
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black)),
+                onPressed: () {
+                  String username = username_controller.text;
+                  String password = password_controller.text;
+                  if (username == 'test@gmail.com' && password == '12345678') {
+                    sharedpreferences.setBool('login', false);
+                    sharedpreferences.setString('username', username);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
+                  }
+                },
+                child: const Text("LogIn"),
+              )
+            ],
+          ),
         ),
       ),
     );
