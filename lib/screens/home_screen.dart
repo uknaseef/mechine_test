@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mechine_test/screens/login_page.dart';
+import 'package:mechine_test/services/user_controller.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserGetService>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -51,11 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.black)),
               onPressed: () {
-                sharedpreferences.setBool('login', true);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
+                provider.logout(context);
               },
               child: const Text('LogOut'),
             )

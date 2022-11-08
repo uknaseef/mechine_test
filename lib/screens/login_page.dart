@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mechine_test/screens/home_screen.dart';
+import 'package:mechine_test/services/user_controller.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,8 +12,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final username_controller = TextEditingController();
-  final password_controller = TextEditingController();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   late SharedPreferences sharedpreferences;
   late bool user;
@@ -24,9 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void alreadylogin() async {
     sharedpreferences = await SharedPreferences.getInstance();
-    user = (sharedpreferences.getBool('login') ?? true);
+    user = (sharedpreferences.getBool('isLogged') ?? false);
 
-    if (user == false) {
+    if (user) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     }
@@ -34,13 +36,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    username_controller.dispose();
-    password_controller.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserGetService>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -60,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: username_controller,
+                controller: usernameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'username',
@@ -68,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: password_controller,
+                controller: passwordController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
@@ -78,16 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.black)),
                 onPressed: () {
-                  String username = username_controller.text;
-                  String password = password_controller.text;
-                  if (username == 'test@gmail.com' && password == '12345678') {
-                    sharedpreferences.setBool('login', false);
-                    sharedpreferences.setString('username', username);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()));
-                  }
+                  provider.login(context, usernameController.text,
+                      passwordController.text);
                 },
                 child: const Text("LogIn"),
               )
